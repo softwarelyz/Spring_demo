@@ -77,18 +77,4 @@ public class BookController extends WebMvcConfigurerAdapter {
         return "redirect:/index";
     }
 
-    /*@PostMapping("/add")
-    public String save(@Valid Book book, BindingResult errors,Model model){
-        if (book.getAuthor()==null || book.getAuthor().getId()<1){
-            errors.rejectValue("author",null,"您需要填写作者信息");
-        }
-        if (errors.hasErrors()){
-            model.addAttribute("authors",authorDAO.findAll());
-        }
-        bookDAO.save(book);
-        return "redirect:index";
-    }*/
-
-
-
 }

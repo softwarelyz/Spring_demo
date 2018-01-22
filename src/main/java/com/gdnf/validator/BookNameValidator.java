@@ -15,7 +15,7 @@ public class BookNameValidator implements ConstraintValidator<BookName,String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if(value == null || value.indexOf("haha") == -1) {
+        if(value == null) {
             return false;
         }
         return true;
