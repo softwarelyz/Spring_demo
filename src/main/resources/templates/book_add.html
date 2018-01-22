@@ -5,16 +5,29 @@
 
 <div layout:fragment="content">
 
-    <form th:action="@{/book/store}" method="post">
+    <form th:action="@{/book/store}" method="post" th:object="${book}">
 
         <div class="form-group">
             <label for="name">书名</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="书名"></input>
+            <input type="text" th:field="*{name}" th:errorclass="is-invalid"  class="form-control" id="name" name="name" placeholder="书名"></input>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
         </div>
 
         <div class="form-group">
             <label for="price">价格</label>
-            <input type="number" class="form-control" id="price" name="price" placeholder="价格"></input>
+            <input type="number" th:field="*{price}" th:errorclass="is-invalid"  class="form-control" id="price" name="price" placeholder="价格"></input>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="author">作者</label>
+            <select class="form-control" th:field="*{author}" th:errorclass="is-invalid" id="author" name="author.id">
+                <option value="-1">请选择</option>
+                <option th:each="author : ${authors}"
+                        th:value="${author.id}"
+                        th:text="${author.name}">作者</option>
+            </select>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div>
         </div>
 
         <button type="submit" class="btn btn-dark mt-2 offset-sm-5 offset-lg-0">添加</button>

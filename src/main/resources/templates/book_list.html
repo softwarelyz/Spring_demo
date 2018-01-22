@@ -17,13 +17,18 @@
             <tr>
                 <td>编号</td>
                 <td>书名</td>
+                <td>作者</td>
                 <td>价格</td>
                 <td>操作</td>
             </tr>
         </thead>
+        <tr th:if="${#lists.isEmpty(books)}">
+            <td colspan="5">书籍为空，请添加书籍<a th:href="@{/book/add}">添加</a></td>
+        </tr>
         <tr th:each="book:${books}">
             <td th:text="${book.id}"></td>
-            <td th:text="${book.name}"></td>
+            <td>《[[${book.name}]]》</td>
+            <td th:text="${book.author.name}">author</td>
             <td th:text="${book.price}"></td>
             <td>
                 <a th:href="@{/book/update(id=${book.id})}">修改</a>
@@ -33,5 +38,6 @@
     </table>
 
     <a th:href="@{/book/add}" class="btn btn-dark mt-2 offset-sm-5 offset-lg-0">添加书籍</a>
+    <a th:href="@{/author_add}" class="btn btn-dark mt-2 offset-sm-5 offset-lg-0">添加作者</a>
 </div>
 

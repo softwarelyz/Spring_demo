@@ -1,8 +1,14 @@
 package com.gdnf.entity;
 
+import com.gdnf.validator.BookName;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * Created by admin on 2018/1/15.
@@ -10,12 +16,20 @@ import javax.persistence.Id;
 @Entity
 public class Book {
 
-
     @Id
     @GeneratedValue
     private long id;
+
+    //@Size(min = 2 , max = 10)
+    @BookName
     private String name;
+
+    @NotNull(message = "不能为空")
+    @Min(value = 10,message = "价格不能小于10")
     private float price;
+
+    @ManyToOne
+    private Author author;
 
     public Book() {
     }
@@ -47,6 +61,14 @@ public class Book {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 
     @Override

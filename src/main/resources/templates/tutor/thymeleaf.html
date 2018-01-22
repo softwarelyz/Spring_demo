@@ -17,7 +17,10 @@
 
     <div th:text="${country}">是我的国家</div>
     <div th:text="${#dates.format(now,'yyyy 年 MM 月 dd 日')}">现在</div>
-    <!--<div th:text="${#request.getSesstion().getValue('xxx')}">是我的国家</div>-->
+
+    <!--存在会话里，可以多页面使用-->
+    <div th:text="${#request.getSession().putValue('xxx','中国')}">是我的国家</div>
+    <div th:text="${#request.getSession().getValue('xxx')}">是我的国家</div>
 
     <hr>
 
