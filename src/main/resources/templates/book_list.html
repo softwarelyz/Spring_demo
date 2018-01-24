@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="layout/layout">
+      layout:decorate="layout/layout2">
 <head>
     <title th:text="#{site_title}"></title>
     <script>
@@ -9,7 +9,10 @@
     </script>
 </head>
 
+<span layout:fragment="bread">图书列表</span>
+
 <div layout:fragment="content">
+
     <!--<h3 th:text="#{messages}"></h3>-->
     <!--freemarker-->
     <table class="table table-bg table-hover table-dark table-striped">
@@ -31,13 +34,16 @@
             <td th:text="${book.author.name}">author</td>
             <td th:text="${book.price}"></td>
             <td>
-                <a th:href="@{/book/update(id=${book.id})}">修改</a>
-                <a th:href="@{/book/delete(id=${book.id})}" onclick="if (!window.confirm('您是否要删除？'))event.preventDefault();"> 删除</a>
+                <a th:href="@{/book/update(id=${book.id})}" >编辑</a>
+                <a th:href="@{/book/delete(id=${book.id})}" data-action="删除"  data-toggle="modal" data-target="#exampleModal"> 删除</a>
             </td>
         </tr>
     </table>
 
     <a th:href="@{/book/add}" class="btn btn-dark mt-2 offset-sm-5 offset-lg-0">添加书籍</a>
-    <a th:href="@{/author_add}" class="btn btn-dark mt-2 offset-sm-5 offset-lg-0">添加作者</a>
+    <!--<a th:href="@{/author_add}" class="btn btn-dark mt-2 offset-sm-5 offset-lg-0">添加作者</a>-->
 </div>
 
+<script layout:fragment="scripts">
+    $(".nav-book").addClass("active");
+</script>

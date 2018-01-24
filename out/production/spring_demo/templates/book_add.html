@@ -1,26 +1,44 @@
 <!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Document</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="layout/layout">
 
-        <link href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.css" rel="stylesheet"></link>
-    </head>
+<div layout:fragment="content">
 
-    <body>
-        <div class="container">
-            <form action="/book/store" method="post">
-                <div class="form-group">
-                    <label for="name">书名</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="书名"></input>
-                </div>
-                <div class="form-group">
-                    <label for="price">价格</label>
-                    <input type="number" class="form-control" id="price" name="price" placeholder="价格"></input>
-                </div>
-                <button type="submit" class="btn btn-primary">添加</button>
-            </form>
+    <form th:action="@{/book/store}" method="post" th:object="${book}">
+
+        <div class="form-group">
+            <label for="name">书名</label>
+            <input type="text" th:field="*{name}" th:errorclass="is-invalid"  class="form-control" id="name" name="name" placeholder="书名"></input>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
         </div>
 
-    </body>
-</html>
+        <div class="form-group">
+            <label for="price">价格</label>
+            <input type="number" th:field="*{price}" th:errorclass="is-invalid"  class="form-control" id="price" name="price" placeholder="价格"></input>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="author">作者</label>
+            <select class="form-control" th:field="*{author}" th:errorclass="is-invalid" id="author" name="author.id">
+                <option value="-1">请选择</option>
+                <option th:each="author : ${authors}"
+                        th:value="${author.id}"
+                        th:text="${author.name}">作者</option>
+            </select>
+            <div class="invalid-feedback" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></div>
+        </div>
+
+        <button type="submit" class="btn btn-dark mt-2 offset-sm-5 offset-lg-0">添加</button>
+
+    </form>
+</div>
+
+<div layout:fragment="help">
+    <p>- 名字不能为空</p>
+    <p>- 名字不能带空格</p>
+    <p>- 名字不能带英文</p>
+    <p>- 名字不能带韩文</p>
+    <p>- 名字不能带日文</p>
+</div>

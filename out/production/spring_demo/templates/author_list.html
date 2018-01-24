@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="layout/layout2">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<span layout:fragment="bread">作者列表</span>
+
+<div layout:fragment="content">
+
+    <table class="table table-bg table-hover table-dark table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>姓名</th>
+            <th>电话号码</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(authors)}">
+            <td colspan="5">目前没有签约任何作者哦 <a href="#">添加</a></td>
+        </tr>
+        <tr th:each="author : ${authors}">
+            <td th:text="${author.id}">id</td>
+            <td>[[${author.name}]]</td>
+            <td th:text="${author.telephone}">tel</td>
+            <td>
+                <a th:href="@{/author/update(id=${author.id})}">编辑</a>
+                <a th:href="@{/author/delete(id=${author.id})}" data-action="删除"> 删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a href="#" class="btn btn-dark my-3" th:href="@{/author/add}">签约新的作者</a>
+</div>
+
+<script layout:fragment="script">
+    $(".nav-author").addClass("active");
+</script>

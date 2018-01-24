@@ -1,6 +1,7 @@
 package com.gdnf.entity;
 
 import com.gdnf.validator.BookName;
+import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +22,8 @@ public class Book {
     private long id;
 
     //@Size(min = 2 , max = 10)
-    @BookName
+    //@BookName
+    @NotBlank
     private String name;
 
     @NotNull(message = "不能为空")

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{site_title}"></title>
+    <style>
+        .eee {
+            background-color: #20c997;
+        }
+        .ddd {
+            background-color: #80bdff;
+        }
+    </style>
+</head>
+<body>
+
+    <div th:text="${country}">是我的国家</div>
+    <div th:text="${#dates.format(now,'yyyy 年 MM 月 dd 日')}">现在</div>
+
+    <!--存在会话里，可以多页面使用-->
+    <div th:text="${#request.getSession().putValue('xxx','中国')}">是我的国家</div>
+    <div th:text="${#request.getSession().getValue('xxx')}">是我的国家</div>
+
+    <hr>
+
+    <div th:switch="${age}">
+        <p th:case="21">小伙子</p>
+        <p th:case="*">小伙子哈哈</p>
+    </div>
+
+    <!--<div th:text="${context}" th:classappend="${class}" class="haha"></div>-->
+    <ul th:each="book : ${books}">
+        <li th:class="${bookStat.even ? 'eee' : 'ddd'}">
+            我的书籍：[(${book.name})],价格[[${book.price}]]
+        </li>
+    </ul>
+
+    <hr>
+
+    <ul th:each="book : ${books}">
+        <li th:style="'color: ' + ${book.price>50 ? 'green' : 'yellow'}"
+            th:if="${book.price > 50}"
+            th:class="${bookStat.even ? 'eee' : 'ddd'}"
+            th:text="${bookStat.index+1} + '/' + ${bookStat.size} + '.   ' + ${book.name} + ' : ' + ${book.price}">书籍</li>
+    </ul>
+
+    <p th:each="book : ${books}" th:text="${book.name}+' '+${book.price}"></p>
+
+</body>
+</html>
